@@ -16,12 +16,13 @@
 		<guava.version>18.0</guava.version>
 		<slf4j.version>1.7.21</slf4j.version>
 		<gson.version>2.3</gson.version>
+		<logback.version>1.1.7</logback.version>
 	</properties>
 
 	<scm>
-		<connection>scm:git:https://github.com/mitreid-connect/json-web-key-generator.git</connection>
-		<developerConnection>scm:git:git@github.com:mitreid-connect/json-web-key-generator.git</developerConnection>
-		<url>https://github.com/mitreid-connect/json-web-key-generator.git</url>
+		<connection>scm:git:https://github.com/amidja/json-web-key-generator.git</connection>
+		<developerConnection>scm:git:git@github.com/amidja/json-web-key-generator.git</developerConnection>
+		<url>https://github.com/amidja/json-web-key-generator.git</url>
 		<tag>HEAD</tag>
 	</scm>
 
@@ -93,6 +94,12 @@
     		<version>${slf4j.version}</version>
 		</dependency>		
 		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>com.nimbusds</groupId>
 			<artifactId>nimbus-jose-jwt</artifactId>
 			<classifier>jdk16</classifier>
@@ -142,16 +149,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		
+		<!-- 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
 			<version>${springframework.version}</version>
 		</dependency>
-						
+		 				
 	</dependencies>
 </project>

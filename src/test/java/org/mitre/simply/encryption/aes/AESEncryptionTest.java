@@ -4,40 +4,46 @@ import static org.junit.Assert.assertEquals;
 
 import java.security.GeneralSecurityException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mitre.simply.encryption.Encryptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
-//ApplicationContext will be loaded from the OrderServiceConfig class
-//@ContextConfiguration(classes=OrderServiceConfig.class, loader=AnnotationConfigContextLoader.class)
+//ApplicationContext will be loaded from the AESEncryptionConfig class
+@ContextConfiguration(classes=AESEncryptionConfig.class, loader=AnnotationConfigContextLoader.class)
 public class AESEncryptionTest {
 
-	private final String strToEncrypt = "My text to encrypt";
-    private final String strPssword = "encryptor key";
+	Logger logger = LoggerFactory.getLogger(AESEncryptionTest.class);
 	
+	private final String strToEncrypt = "My text to encrypt";
+    private final String strPssword = "password";
+    
+    @Autowired
+    private AESEncryptionService aesEncryptionService;
+    
 	@Test
 	public void testEncrypt() throws GeneralSecurityException{
 		Encryptor encryptor = new AESEncryptionService(strPssword); 
 				        
-        System.out.println("String to Encrypt: " + strToEncrypt); 
-        System.out.println("Encrypted: " + encryptor.encrypt(strToEncrypt.trim()));         
+        logger.info("String to Encrypt: " + strToEncrypt); 
+        logger.info("Encrypted: " + encryptor.encrypt(strToEncrypt.trim()));         
 	}
 	
 	@Test
 	public void testDecrypt() throws GeneralSecurityException{
-
-		AESEncryptionService aesEncryption = new AESEncryptionService(strPssword);
                
-        System.out.println("String to Encrypt: " + strToEncrypt); 
-        System.out.println("Encrypted: " + aesEncryption.encrypt(strToEncrypt));
+        logger.info("String to Encrypt: " + strToEncrypt); 
+        logger.info("Encrypted: " + aesEncryptionService.encrypt(strToEncrypt));
    
-        String strDecrypted =  aesEncryption.decrypt(aesEncryption.encrypt(strToEncrypt));
+        String strDecrypted =  aesEncryptionService.decrypt(aesEncryptionService.encrypt(strToEncrypt));
                 
-        System.out.println("Decrypted : " + strDecrypted);
+        logger.info("Decrypted : " + strDecrypted);
         assertEquals(strToEncrypt, strDecrypted);
 	}	
 }
