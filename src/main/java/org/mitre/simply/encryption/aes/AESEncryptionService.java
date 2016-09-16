@@ -54,7 +54,6 @@ public class AESEncryptionService extends PwdAESKeyGenerator implements Encrypto
         return decryptedString;
     }
     
-    
     public String getDecryptedString() {return decryptedString;}    
     public String getEncryptedString() {return encryptedString;}
         
