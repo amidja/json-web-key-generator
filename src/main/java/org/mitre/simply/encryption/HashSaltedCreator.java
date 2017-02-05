@@ -22,14 +22,21 @@ import org.springframework.stereotype.Component;
 public class HashSaltedCreator extends HashBasicCreator {
 
 	private static final Logger logger = LoggerFactory.getLogger(HashSaltedCreator.class);
+	
+	private static String algorithm = "SHA1PRNG";
+	private static String provider = "SUN";
+	
+	//Salt generation 64 bits long
+	private static int saltLength = 8;
+
 		
 	 //Add salt	
     protected static byte[] getSalt() throws NoSuchAlgorithmException, NoSuchProviderException{
         //Always use a SecureRandom generator
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG", "SUN");
+        SecureRandom sr = SecureRandom.getInstance(algorithm, provider);        
         
         //Create array for salt
-        byte[] salt = new byte[16];
+        byte[] salt = new byte[saltLength];
 
         //Get a random salt
         sr.nextBytes(salt);

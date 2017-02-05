@@ -18,13 +18,13 @@ import org.slf4j.LoggerFactory;
  * 
  * So, in order to get SecretKey, you need to use either appropriate factory class or SecretKeySpec, as a shortcut.
  */
-public abstract class PwdAESKeyGenerator implements PwdKeyGenerator{
+public abstract class Pbkdf2KeyGenerator implements PwdKeyGenerator{
 	
-	private Logger logger = LoggerFactory.getLogger(PwdAESKeyGenerator.class);
+	private Logger logger = LoggerFactory.getLogger(Pbkdf2KeyGenerator.class);
 			
     private SecretKeySpec secretKey ;
     
-    public PwdAESKeyGenerator(String pwd){
+    public Pbkdf2KeyGenerator(String pwd){
     	this.deriveKey(pwd);
     }
                          

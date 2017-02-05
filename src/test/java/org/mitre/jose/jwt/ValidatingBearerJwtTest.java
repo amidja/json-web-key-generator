@@ -28,7 +28,7 @@ public class ValidatingBearerJwtTest {
 	    "rROP5yinry7BFBL2nVWrNtB9IS11H9C8X5fQ";
 
 
-	@Ignore @Test
+	@Test
 	public void testValidatingBearerJwt() throws Exception{
 		
 		// Set up a JWT processor to parse the tokens and then check their signature

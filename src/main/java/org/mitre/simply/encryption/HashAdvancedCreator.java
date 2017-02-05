@@ -81,5 +81,4 @@ public class HashAdvancedCreator extends HashSaltedCreator {
             return hex;
         }
     }
-
 }

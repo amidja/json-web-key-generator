@@ -24,10 +24,10 @@ public class EncryptionConfig {
 	//	Java has 4 implementations of SHA algorithm. 
 	//	They generate following length hashes in comparison to MD5 (128 bit hash):	
 	//
-	//   SHA-1 (Simplest one – 160 bits Hash)
-	//   SHA-256 (Stronger than SHA-1 – 256 bits Hash)
-	//   SHA-384 (Stronger than SHA-256 – 384 bits Hash)
-	//   SHA-512 (Stronger than SHA-384 – 512 bits Hash)
+	//   SHA-1 (Simplest one ï¿½ 160 bits Hash)
+	//   SHA-256 (Stronger than SHA-1 ï¿½ 256 bits Hash)
+	//   SHA-384 (Stronger than SHA-256 ï¿½ 384 bits Hash)
+	//   SHA-512 (Stronger than SHA-384 ï¿½ 512 bits Hash)
 	@Bean
 	HashSaltedCreator hashSaltedSHA160Creator(){
 		HashSaltedCreator hashSaltedCreator = new HashSaltedCreator();

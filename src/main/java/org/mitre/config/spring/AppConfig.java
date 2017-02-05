@@ -11,5 +11,4 @@ public class AppConfig {
 
 	private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
 	
-	
 }
