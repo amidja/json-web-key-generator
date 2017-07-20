@@ -10,20 +10,15 @@ import org.mitre.simply.encryption.Encryptor;
 import org.mitre.simply.encryption.PwdAESKeyGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 
-@Service("aesEncryptionService")
 public class AESEncryptionService extends PwdAESKeyGenerator implements Encryptor{
 	
 	private static Logger logger = LoggerFactory.getLogger(AESEncryptionService.class);
 	    
     private String decryptedString;    
     private String encryptedString;
-         
-    @Autowired    
-    public AESEncryptionService(@Qualifier("encryptionSecret") String secret){
+            
+    public AESEncryptionService(String secret){
     	super(secret);
     }
     
@@ -58,7 +53,6 @@ public class AESEncryptionService extends PwdAESKeyGenerator implements Encrypto
         }
         return decryptedString;
     }
-    
     
     public String getDecryptedString() {return decryptedString;}    
     public String getEncryptedString() {return encryptedString;}
