@@ -15,15 +15,15 @@ public class RSAKeyMakerTest {
 
 	@Test
 	public void testMake() {
-		String size = "512";
+		String size = "2048";
 		KeyUse keyUse = KeyUse.SIGNATURE;
-		Algorithm keyAlg = JWSAlgorithm.HS512;
-		String kid = null;
+		Algorithm keyAlg = JWSAlgorithm.RS512;
+		String kid = "MyKeyID"; //randomly generate 
 		
 		Integer keySize = Integer.decode(size);
 		JWK jwk = RSAKeyMaker.make(keySize, keyUse, keyAlg, kid);
 				
-		System.out.println(jwk);
+		//System.out.println(jwk);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonElement json = new JsonParser().parse(jwk.toJSONString());        	

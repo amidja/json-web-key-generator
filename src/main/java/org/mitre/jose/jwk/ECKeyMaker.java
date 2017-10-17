@@ -17,7 +17,9 @@ import com.nimbusds.jose.jwk.ECKey.Curve;
 import com.nimbusds.jose.jwk.KeyUse;
 
 /**
- * @author jricher
+ * Generates elliptic curve key pair.
+ * 
+ * @author qja266
  *
  */
 public class ECKeyMaker {
