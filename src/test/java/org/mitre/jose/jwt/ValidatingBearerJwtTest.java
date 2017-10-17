@@ -15,6 +15,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import com.nimbusds.jwt.proc.DefaultJWTProcessor;
 
+@Ignore
 public class ValidatingBearerJwtTest {
 	
 	// The access token to validate, typically submitted with a HTTP header like

@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
  * If a different salt is used (we are generating random salt), then generated hash will be different.
  * 
  */
-@Component("hashSaltedCreator")
+@Component("hashAdvancedCreator")
 public class HashAdvancedCreator extends HashSaltedCreator {
 
 	private static final Logger logger = LoggerFactory.getLogger(HashAdvancedCreator.class);

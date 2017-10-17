@@ -19,7 +19,7 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @ContextConfiguration(classes=EncryptionConfig.class, loader=AnnotationConfigContextLoader.class)
 public class HashCreatorTest {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HashCreatorTest.class);
+	private static final Logger LOG = LoggerFactory.getLogger(HashCreatorTest.class);
 
 	@Autowired
 	@Qualifier("hashMD5Creator")
@@ -32,14 +32,14 @@ public class HashCreatorTest {
 	@Test
 	public void testHashMD5Creator_hash() {
 		String generatedHash = hashCreator.hash("secret");
-		logger.debug("Generated Hash Value [{}]", generatedHash);
+		LOG.debug("Generated Hash Value [{}]", generatedHash);
 		assertThat(generatedHash, not(isEmptyOrNullString()));
 	}
 	
 	@Test
 	public void testHashSaltedSHA160Creator_hash() {
 		String generatedHash = hashSaltedCreator.hash("secret");
-		logger.debug("Generated Hash Value [{}]", generatedHash);
+		LOG.debug("Generated Hash Value [{}]", generatedHash);
 		assertThat(generatedHash, not(isEmptyOrNullString()));
 	}	
 }
