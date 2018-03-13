@@ -10,6 +10,7 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
 import com.nimbusds.jose.Algorithm;
+import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.KeyUse;
 import com.nimbusds.jose.jwk.RSAKey;
 
@@ -36,16 +37,14 @@ public class RSAKeyMaker {
 	        RSAPublicKey pub = (RSAPublicKey) kp.getPublic();
 	        RSAPrivateKey priv = (RSAPrivateKey) kp.getPrivate();
 	        
-	        RSAKey key = new RSAKey(pub, priv, keyUse, null, keyAlg, kid, null, null, null);
-	        
-	        return key;
+	        RSAKey jwkKey = new RSAKey(pub, priv, keyUse, null, keyAlg, kid, null, null, null);
+	        	        	        
+	        return jwkKey;
         } catch (NoSuchAlgorithmException e) {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();
 	        return null;
-        }
-    	
-    	
+        }    	    	
     }
-
+           
 }
