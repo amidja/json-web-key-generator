@@ -14,7 +14,8 @@ import com.nimbusds.jose.jwk.KeyUse;
 public class RSAKeyMakerTest {
 
 	@Test
-	public void testMake() {
+	public void testMakeRSAKey() {
+		
 		String size = "2048";
 		KeyUse keyUse = KeyUse.SIGNATURE;
 		Algorithm keyAlg = JWSAlgorithm.RS512;
@@ -22,13 +23,10 @@ public class RSAKeyMakerTest {
 		
 		Integer keySize = Integer.decode(size);
 		JWK jwk = RSAKeyMaker.make(keySize, keyUse, keyAlg, kid);
-				
-		//System.out.println(jwk);
-		
+						
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		JsonElement json = new JsonParser().parse(jwk.toJSONString());        	
-		System.out.println(gson.toJson(json));
-		
+		System.out.println(gson.toJson(json));	
 	}
 
 }
