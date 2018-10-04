@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-
 /**
  * 
  * Please note that now you have to store generated salt value for every password you hash. 
@@ -29,7 +28,6 @@ public class HashSaltedCreator extends HashBasicCreator {
 	//Salt generation 64 bits long
 	private static int saltLength = 8;
 
-		
 	 //Add salt	
     protected static byte[] getSalt() throws NoSuchAlgorithmException, NoSuchProviderException{
         //Always use a SecureRandom generator
