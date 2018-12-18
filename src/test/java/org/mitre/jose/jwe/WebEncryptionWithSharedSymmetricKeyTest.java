@@ -19,7 +19,6 @@ import com.nimbusds.jose.JWEObject;
 import com.nimbusds.jose.Payload;
 import com.nimbusds.jose.crypto.DirectDecrypter;
 import com.nimbusds.jose.crypto.DirectEncrypter;
-import com.nimbusds.jose.util.ByteUtils;
 
 public class WebEncryptionWithSharedSymmetricKeyTest {
 	

@@ -16,6 +16,7 @@ public class AESEncryptionService extends PwdAESKeyGenerator implements Encrypto
 	private static Logger logger = LoggerFactory.getLogger(AESEncryptionService.class);
 	    
     private String decryptedString;    
+    
     private String encryptedString;
             
     public AESEncryptionService(String secret){
