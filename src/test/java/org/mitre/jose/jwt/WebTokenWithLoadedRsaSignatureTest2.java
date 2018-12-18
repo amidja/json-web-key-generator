@@ -13,6 +13,7 @@ import java.util.Date;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.me.java.security.PemFile;
 import org.mitre.jose.jwk.RSAKeyMaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +33,18 @@ import com.nimbusds.jwt.SignedJWT;
 public class WebTokenWithLoadedRsaSignatureTest2 {
 
 	final static Logger LOGGER = LoggerFactory.getLogger(WebTokenWithLoadedRsaSignatureTest2.class);
-
-	private static final JWSAlgorithm KEY_ALG = JWSAlgorithm.RS256;
-
-	private static final String KID = "vaadwaur-pulsewave";
-
-	private static final String ORGID = "9646844092";
-
 	
-	@Ignore @Test
+	private String resourcesFilePath = "src/test/resources/";
+
+	//private static final JWSAlgorithm KEY_ALG = JWSAlgorithm.RS512;
+	//private static final String KID = "varon-t-disruptor";
+	//private static final String ORGID = "9646844092";
+	
+	private static final String KID = "vaadwaur-pulsewave";
+	private static final String ORGID = "9646844092";
+	private static final JWSAlgorithm KEY_ALG = JWSAlgorithm.RS512;
+		
+	@Test
 	public void testJwkWithRsaSignature() throws Exception {
 
 		RSAKey myRsaKey = loadRSAKeyFromFile(KID.trim());
@@ -52,7 +56,11 @@ public class WebTokenWithLoadedRsaSignatureTest2 {
 		JWSSigner signer = new RSASSASigner(privateKey);
 
 		// Prepare JWT with claims set
-		JWTClaimsSet claimsSet = new JWTClaimsSet.Builder().issuer(ORGID).subject(KID).issueTime(new Date())
+		JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+				.issuer(ORGID)
+				.subject(KID)
+				.audience("https://proda.humanservices.gov.au")
+				.issueTime(new Date())
 				.expirationTime(new Date(new Date().getTime() + 60 * 1000)).build();
 
 		JWSHeader myJWSHeader = new JWSHeader.Builder(KEY_ALG).keyID(KID).build();
@@ -78,18 +86,22 @@ public class WebTokenWithLoadedRsaSignatureTest2 {
 		assertTrue(signedJWT.verify(verifier));
 	}
 
-
+	@Test
+	public void testPemFileCreation() throws Exception {
+		RSAKey myRsaKey = loadRSAKeyFromFile(KID.trim());
+		
+		outPemFiles(myRsaKey, KID.trim());		
+	}
 	
 	/*
-	 * The method will create new jwk and write it to a file if device
+	 * The method will create new JWK and write it to a file for a new device
 	 */
 	public RSAKey loadRSAKeyFromFile(String deviceName) throws Exception {
-		final ClassLoader classLoader = this.getClass().getClassLoader();
+	
 		RSAKey myRsaKey = null;
 
-		String filePath = "src/test/resources/";
-		String fileJwkName = filePath + deviceName + ".jwk";
-		String filePubJwkName = filePath + deviceName + "-pub.jwk";
+		String fileJwkName = resourcesFilePath + deviceName + ".jwk";
+		String filePubJwkName = resourcesFilePath + deviceName + "-pub.jwk";
 
 		// URL jwkFileLocation = classLoader.getResource(fileJwkName);
 
@@ -106,7 +118,7 @@ public class WebTokenWithLoadedRsaSignatureTest2 {
 			File newPubJwkFile = new File(filePubJwkName);
 			newPubJwkFile.createNewFile();
 			writer = new BufferedWriter(new FileWriter(newPubJwkFile));
-			writer.write(myRsaKey.toPublicJWK().toJSONString());
+			writer.write(myRsaKey.toPublicJWK().toJSONString()); 
 			writer.close();
 		} else {
 			LOGGER.debug(" File {} exist", fileJwkName);
@@ -118,7 +130,6 @@ public class WebTokenWithLoadedRsaSignatureTest2 {
 				builder.append(currentLine);
 				currentLine = reader.readLine();
 			}
-
 			reader.close();
 			myRsaKey = RSAKey.parse(builder.toString());
 		}
@@ -128,7 +139,7 @@ public class WebTokenWithLoadedRsaSignatureTest2 {
 
 	private static RSAKey getRsaKey(String kid, Algorithm keyAlg) {
 
-		String size = "2048";
+		String size = "3072";
 		KeyUse keyUse = KeyUse.SIGNATURE;
 
 		Integer keySize = Integer.decode(size);
@@ -137,4 +148,14 @@ public class WebTokenWithLoadedRsaSignatureTest2 {
 		return jwk;
 	}
 
+	private void outPemFiles(RSAKey rsaKey, String deviceName) throws Exception {
+		String privateFileName = resourcesFilePath + deviceName + "-private.pem";
+		String publicFileName = resourcesFilePath + deviceName + "-public.pem";
+		
+		PemFile pemFile = new PemFile(rsaKey.toPrivateKey(), "PRIVATE KEY");		
+		pemFile.write(privateFileName);
+		
+		pemFile = new PemFile(rsaKey.toPublicKey(), "PUBLIC KEY");		
+		pemFile.write(publicFileName);		
+	}
 }
